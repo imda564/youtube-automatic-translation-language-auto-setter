@@ -1,0 +1,17 @@
+# Local AgentManager metadata
+.am/
+
+# Local design sources and one-off image-generation helpers
+icon.png
+my_logo.png
+crop.ps1
+crop_user.ps1
+
+# Packaged extension archives
+*.zip
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo

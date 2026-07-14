@@ -1,0 +1,23 @@
+{
+  "extName": {
+    "message": "유튜브 자동번역 언어 자동 선택기"
+  },
+  "extDesc": {
+    "message": "자동으로 유튜브 자막 언어를 설정해준다."
+  },
+  "extActionTitle": {
+    "message": "번역 언어 선택"
+  },
+  "popupTitle": {
+    "message": "유튜브 자막 자동 번역기"
+  },
+  "popupHeader": {
+    "message": "번역할 언어 선택"
+  },
+  "popupLabel": {
+    "message": "기본 언어 (Language):"
+  },
+  "savedMessage": {
+    "message": "저장되었습니다."
+  }
+}

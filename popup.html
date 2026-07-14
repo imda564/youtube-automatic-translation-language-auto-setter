@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title data-i18n="popupTitle">YouTube Auto Translator</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 10px;">
+      <img src="icon_48.png" alt="Translate Logo" style="width: 48px; height: 48px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+    </div>
+    <h2 data-i18n="popupHeader">Select Target Language</h2>
+
+    <label for="lang-search" id="lang-search-label">Search Language:</label>
+    <input id="lang-search" type="search" autocomplete="off" aria-label="Search language">
+
+    <label for="lang-select" class="lang-label-row">
+      <span data-i18n="popupLabel">Preferred Language:</span>
+      <span id="applied-language" class="applied-language" title="Selected language">✓ -</span>
+    </label>
+    <select id="lang-select" size="8"></select>
+
+    <div class="no-results" id="no-results" hidden>No languages found.</div>
+    <div class="status-message" id="status"></div>
+  </div>
+
+  <script src="language-data.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

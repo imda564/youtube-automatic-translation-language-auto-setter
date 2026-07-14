@@ -1,0 +1,23 @@
+{
+  "extName": {
+    "message": "YouTube Auto-Translate Language Auto-Selector"
+  },
+  "extDesc": {
+    "message": "Automatically sets the YouTube subtitle language."
+  },
+  "extActionTitle": {
+    "message": "Select Auto-Translate Language"
+  },
+  "popupTitle": {
+    "message": "YouTube Auto Translator"
+  },
+  "popupHeader": {
+    "message": "Select Target Language"
+  },
+  "popupLabel": {
+    "message": "Preferred Language:"
+  },
+  "savedMessage": {
+    "message": "Saved."
+  }
+}
