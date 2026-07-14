@@ -4,6 +4,10 @@
 
 A lightweight Chrome extension that remembers your preferred subtitle language and automatically applies it through YouTube's subtitle settings.
 
+Supports a wide range of subtitle languages used across countries and regions worldwide.
+
+전 세계 여러 국가와 지역에서 사용하는 다양한 자막 언어를 지원합니다.
+
 ## Install
 
 **[Install from the Chrome Web Store](https://chromewebstore.google.com/detail/naefklandenadphambkjgindjnodfkdj)**
