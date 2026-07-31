@@ -17,6 +17,9 @@
   "popupLabel": {
     "message": "기본 언어 (Language):"
   },
+  "turnOffSubtitlesOnNavigation": {
+    "message": "\uB2E4\uB978 \uC601\uC0C1\uC73C\uB85C \uB118\uC5B4\uAC08 \uB54C \uC790\uB9C9 \uB044\uAE30"
+  },
   "savedMessage": {
     "message": "저장되었습니다."
   }
