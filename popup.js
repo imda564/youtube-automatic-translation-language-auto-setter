@@ -17,6 +17,7 @@
   const noResults = document.getElementById("no-results");
   const statusDiv = document.getElementById("status");
   const appliedLanguage = document.getElementById("applied-language");
+  const turnOffSubtitlesOnNavigation = document.getElementById("turn-off-subtitles-on-navigation");
 
   searchLabel.textContent = chrome.i18n.getMessage("popupSearchLabel") || "Search Language:";
   langSearch.placeholder = chrome.i18n.getMessage("popupSearchPlaceholder") || "Search language...";
@@ -73,10 +74,11 @@
     });
   }
 
-  chrome.storage.sync.get(["targetLanguage"], (result) => {
+  chrome.storage.sync.get(["targetLanguage", "turnOffSubtitlesOnNavigation"], (result) => {
     if (result.targetLanguage) {
       selectedCode = languageData.canonicalizeLanguageCode(result.targetLanguage);
     }
+    turnOffSubtitlesOnNavigation.checked = result.turnOffSubtitlesOnNavigation !== false;
     renderOptions(selectedCode);
     updateAppliedLanguage(selectedCode);
   });
@@ -94,5 +96,16 @@
     selectedCode = langSelect.value;
     saveLanguage(selectedCode);
     updateAppliedLanguage(selectedCode);
+  });
+
+  turnOffSubtitlesOnNavigation.addEventListener("change", () => {
+    chrome.storage.sync.set({
+      turnOffSubtitlesOnNavigation: turnOffSubtitlesOnNavigation.checked
+    }, () => {
+      statusDiv.textContent = chrome.i18n.getMessage("savedMessage") || "Saved.";
+      setTimeout(() => {
+        statusDiv.textContent = "";
+      }, 2000);
+    });
   });
 });

@@ -1,6 +1,7 @@
 ﻿const DEFAULT_LANGUAGE = "ko";
 let targetLanguage = DEFAULT_LANGUAGE;
 let isAutoTranslating = false;
+let turnOffSubtitlesOnNavigation = false;
 
 const languageData = globalThis.YTLanguageData;
 
@@ -21,21 +22,40 @@ const AUTO_TRANSLATE_KEYWORDS = [
 const normalizedSubtitleKeywords = SUBTITLE_MENU_KEYWORDS.map((keyword) => normalizeText(keyword));
 const normalizedAutoTranslateKeywords = AUTO_TRANSLATE_KEYWORDS.map((keyword) => normalizeText(keyword));
 
-chrome.storage.sync.get(["targetLanguage"], (result) => {
+chrome.storage.sync.get(["targetLanguage", "turnOffSubtitlesOnNavigation"], (result) => {
   if (result.targetLanguage) {
     targetLanguage = canonicalizeCode(result.targetLanguage);
   }
+  turnOffSubtitlesOnNavigation = result.turnOffSubtitlesOnNavigation !== false;
 });
 
 chrome.storage.onChanged.addListener((changes, namespace) => {
-  if (namespace !== "sync" || !changes.targetLanguage) return;
+  if (namespace !== "sync") return;
 
-  targetLanguage = canonicalizeCode(changes.targetLanguage.newValue);
-  tryAutoTranslate();
+  if (changes.targetLanguage) {
+    targetLanguage = canonicalizeCode(changes.targetLanguage.newValue);
+    tryAutoTranslate();
+  }
+
+  if (changes.turnOffSubtitlesOnNavigation) {
+    turnOffSubtitlesOnNavigation = changes.turnOffSubtitlesOnNavigation.newValue !== false;
+  }
 });
 
 document.addEventListener("yt-navigate-finish", () => {
+  if (turnOffSubtitlesOnNavigation) {
+    setTimeout(turnOffSubtitles, 300);
+    return;
+  }
+
   setTimeout(tryAutoTranslate, 2000);
+});
+
+document.addEventListener("yt-navigate-start", () => {
+  closeMenu();
+  if (turnOffSubtitlesOnNavigation) {
+    turnOffSubtitles();
+  }
 });
 
 document.addEventListener("yt-page-data-updated", () => {
@@ -113,6 +133,11 @@ function isTargetLanguageText(text, targetCandidates) {
 }
 
 function closeMenu(settingsButton) {
+  // Clicking the settings button when its menu is already closed reopens it.
+  // Check first so this function is safe to call after a language selection
+  // and while YouTube is navigating to the next video.
+  if (!getVisiblePanel()) return;
+
   if (settingsButton && document.body.contains(settingsButton)) {
     settingsButton.click();
     return;
@@ -123,6 +148,13 @@ function closeMenu(settingsButton) {
     player.click();
   } else {
     document.body.click();
+  }
+}
+
+function turnOffSubtitles() {
+  const ccButton = document.querySelector(".ytp-subtitles-button");
+  if (ccButton?.getAttribute("aria-pressed") === "true") {
+    ccButton.click();
   }
 }
 
@@ -230,4 +262,6 @@ async function performAutoTranslate() {
   }
 
   targetLanguageItem.click();
+  await sleep(100);
+  closeMenu(settingsButton);
 }

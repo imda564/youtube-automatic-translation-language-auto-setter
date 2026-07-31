@@ -17,6 +17,9 @@
   "popupLabel": {
     "message": "Preferred Language:"
   },
+  "turnOffSubtitlesOnNavigation": {
+    "message": "Turn off subtitles when changing videos"
+  },
   "savedMessage": {
     "message": "Saved."
   }
